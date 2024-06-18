@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@keyframes translateAndScale {
+    0% {
+        transform: translateX(-378px) scale(1)
+    }
+
+    50% {
+        transform: translateX(0) scale(1.5) rotate(180deg)
+    }
+
+    100% {
+        transform: translateX(0) scale(1) rotate(180deg)
+    }
+}
+
+@keyframes OnlyScale {
+    0% {
+        transform: scale(0.1)
+    }
+
+    50% {
+        transform: scale(1.5)
+    }
+
+    100% {
+        transform: scale(1)
+    }
+}
+
+.animate-translate-scale {
+    animation: translateAndScale 2s ease-in-out
+}
+
+.animate-scale {
+    animation: OnlyScale 3s ease-in-out
+}
