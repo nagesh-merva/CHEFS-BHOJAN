@@ -9,8 +9,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_secure_default_key')
 
-CORS(app, supports_credentials=True, allow_headers="*", origins="*", methods=["OPTIONS", "POST"])
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+CORS(app, supports_credentials=True, origins="*")
 
 client = MongoClient(
     'mongodb+srv://crob0008:GYfLnhxdJgeiOTPO@chefsbhojan.oxsu9gm.mongodb.net/',
@@ -22,7 +21,12 @@ Deatils = db['CONTACTS']
 @app.route('/api/save_form_data', methods=['POST', 'OPTIONS'])
 def save_form_data():
     if request.method == 'OPTIONS':
-        return jsonify({'status': 'success', 'message': 'CORS preflight request handled successfully'}), 200
+        headers = {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
+            'Access-Control-Allow-Headers': '*'
+        }
+        return ('', 204, headers)
     
     data = request.get_json()
     print("Received form data:", data)
