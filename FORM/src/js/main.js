@@ -33,7 +33,10 @@ document.getElementById('discountForm').addEventListener('submit', function (eve
 });
 
 function fetchWeightedValue() {
-    fetch('https://chefs-bhojan-mlz6.vercel.app/get_discount_value')
+    fetch('https://chefs-bhojan-mlz6.vercel.app/api/get_discount_value', {
+        method: 'GET',
+        credentials: 'include',
+    })
         .then(response => response.json())
         .then(data => {
             Discount = data.value
@@ -42,8 +45,9 @@ function fetchWeightedValue() {
         })
         .catch((error) => {
             console.error('Error fetching weighted value:', error)
-        });
+        })
 }
+
 
 function updateElements() {
     HAT.classList.remove('hidden')
