@@ -9,7 +9,9 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_secure_default_key')
 
-cors = CORS(app, resources= {r'/*':{'origins' : 'https://chefs-bhojan.vercel.app'}})
+CORS(app, supports_credentials=True, allow_headers="*", origins="*", methods=["OPTIONS", "POST"])
+CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
+
 
 client = MongoClient(
     'mongodb+srv://crob0008:GYfLnhxdJgeiOTPO@chefsbhojan.oxsu9gm.mongodb.net/',
@@ -23,12 +25,8 @@ Deatils = db['CONTACTS']
 def save_form_data():
 
     if request.method == 'OPTIONS':
-        headers = {
-            'Access-Control-Allow-Origin': 'https://chefs-bhojan.vercel.app',
-            'Access-Control-Allow-Methods': 'POST',
-            'Access-Control-Allow-Headers': 'Content-Type'
-        }
-        return ('', 204, headers)
+        return jsonify({'status': 'success', 'message': 'CORS preflight request handled successfully'}), 200
+
     
     data = request.get_json()
     print("Received form data:", data)
