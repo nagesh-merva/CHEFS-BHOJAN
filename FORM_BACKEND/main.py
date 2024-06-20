@@ -18,7 +18,7 @@ client = MongoClient(
 db = client['FORMDATACOLLECTION']
 Deatils = db['CONTACTS']
 
-@app.route('/api/save_form_data', methods=['POST', 'OPTIONS'])
+@app.route('/save_form_data', methods=['POST', 'OPTIONS'])
 def save_form_data():
     if request.method == 'OPTIONS':
         return jsonify({'status': 'success', 'message': 'CORS preflight request handled successfully'}), 200
@@ -39,7 +39,7 @@ def get_weighted_value():
     probabilities = [0.5, 0.4, 0.1]
     return random.choices(values, probabilities)[0]
 
-@app.route('/api/get_discount_value', methods=['GET'])
+@app.route('/get_discount_value', methods=['GET'])
 def get_value():
     value = get_weighted_value()
     return jsonify({'value': value})
