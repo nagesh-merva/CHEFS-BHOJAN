@@ -1,4 +1,3 @@
-let Discount = 10
 
 const HAT = document.getElementById('Chefshat')
 const DISCOUNT = document.getElementById('discount')
@@ -39,14 +38,31 @@ async function saveFormData(formData) {
         updateElements()
         return response.json()
     } catch (error) {
-        throw error;
+        throw error
     }
 }
 
+function getRandomDiscount() {
+    const values = [10, 20, 30, 40]
+    const probabilities = [0.3, 0.5, 0.1, 0.1]
+
+    let random = Math.random()
+    let cumulativeProbability = 0
+
+    for (let i = 0; i < values.length; i++) {
+        cumulativeProbability += probabilities[i]
+        if (random < cumulativeProbability) {
+            return values[i]
+        }
+    }
+}
 
 function updateElements() {
+    const Discount = getRandomDiscount()
+
     HAT.classList.remove('hidden')
     HAT.classList.add('animate-translate-scale')
+
     setTimeout(() => {
         DISCOUNT.innerText += Discount + "% Discount"
         DISCOUNT.classList.add('animate-scale')
