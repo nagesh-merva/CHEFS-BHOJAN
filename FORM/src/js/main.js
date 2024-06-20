@@ -23,11 +23,11 @@ document.getElementById('discountForm').addEventListener('submit', function (eve
     })
         .then(response => response.text())
         .then(data => {
-            alert('Form submitted successfully')
             fetchWeightedValue()
         })
         .catch((error) => {
             console.error('Error:', error)
+            alert('ERROR, Please try again')
         })
 });
 
