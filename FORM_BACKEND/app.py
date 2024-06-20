@@ -21,12 +21,7 @@ Deatils = db['CONTACTS']
 @app.route('/api/save_form_data', methods=['POST', 'OPTIONS'])
 def save_form_data():
     if request.method == 'OPTIONS':
-        headers = {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST',
-            'Access-Control-Allow-Headers': '*'
-        }
-        return ('', 204, headers)
+        return jsonify({'status': 'success', 'message': 'CORS preflight request handled successfully'}), 200
     
     data = request.get_json()
     print("Received form data:", data)
