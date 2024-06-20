@@ -21,7 +21,12 @@ Deatils = db['CONTACTS']
 @app.route('/api/save_form_data', methods=['POST', 'OPTIONS'])
 def save_form_data():
     if request.method == 'OPTIONS':
-        return jsonify({'status': 'success', 'message': 'CORS preflight request handled successfully'}), 200
+        headers = {
+            'Access-Control-Allow-Origin': 'https://chefs-bhojan.vercel.app',
+            'Access-Control-Allow-Methods': 'POST',
+            'Access-Control-Allow-Headers': 'Content-Type'
+        }
+        return ('', 204, headers)
     
     data = request.get_json()
     print("Received form data:", data)
