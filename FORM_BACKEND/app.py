@@ -37,7 +37,11 @@ def save_form_data():
         'date_created': datetime.utcnow(),
     }
     Deatils.insert_one(new_order)
-    return jsonify({'status': 'success', 'message': 'Form data saved successfully'}), 200
+    response = jsonify({'status': 'success', 'message': 'Form data saved successfully'}), 200
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    response.headers.add('Access-Control-Allow-Methods', 'GET, POST')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
 
 def get_weighted_value():
     values = [10, 20, 40]
