@@ -46,7 +46,6 @@ async function fetchWeightedValue() {
     try {
         const response = await fetch('https://chefs-bhojan-mlz6.vercel.app/api/get_discount_value', {
             method: 'GET',
-            mode: 'cors',
             credentials: 'include'
         });
         if (!response.ok) {
