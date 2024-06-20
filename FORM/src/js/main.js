@@ -25,7 +25,7 @@ document.getElementById('discountForm').addEventListener('submit', async functio
 
 async function saveFormData(formData) {
     try {
-        const response = await fetch('https://chefs-bhojan.vercel.app/api/save_form_data', {
+        const response = await fetch('http://localhost:8000/api/save_form_data', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -45,7 +45,7 @@ async function saveFormData(formData) {
 
 async function fetchWeightedValue() {
     try {
-        const response = await fetch('https://chefs-bhojan.vercel.app/api/get_discount_value', {
+        const response = await fetch('http://localhost:8000/api/get_discount_value', {
             method: 'GET',
             mode: 'cors',
             credentials: 'include'

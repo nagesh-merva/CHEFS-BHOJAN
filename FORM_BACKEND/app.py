@@ -1,16 +1,15 @@
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
 from datetime import datetime
-from flask_cors import CORS , cross_origin
+from flask_cors import CORS
 import os
 import random
 
 app = Flask(__name__)
+CORS(app ,supports_credentials=True)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_secure_default_key')
 
-CORS(app, supports_credentials=True, allow_headers="*", origins="*", methods=["OPTIONS", "POST"])
-CORS(app, resources={r"/api/*": {"origins": "https://chefs-bhojan-form.vercel.app"}}, supports_credentials=True)
 
 
 client = MongoClient(
@@ -21,7 +20,6 @@ db = client['FORMDATACOLLECTION']
 Deatils = db['CONTACTS']
 
 @app.route('/api/save_form_data', methods=['POST', 'OPTIONS'])
-@cross_origin()
 def save_form_data():
 
     if request.method == 'OPTIONS':
@@ -45,10 +43,6 @@ def get_weighted_value():
     return random.choices(values, probabilities)[0]
 
 @app.route('/api/get_discount_value', methods=['GET'])
-@cross_origin()
 def get_value():
     value = get_weighted_value()
     return jsonify({'value': value})
-
-if __name__ == "__main__":
-    app.run(debug=True)
