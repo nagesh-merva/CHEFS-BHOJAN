@@ -2,10 +2,12 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 from pymongo import MongoClient
 from datetime import datetime
+import os
 import random
 
 app = Flask(__name__)
 
+# Enable CORS for all routes with credentials support
 CORS(app, supports_credentials=True)
 
 client = MongoClient(
@@ -15,8 +17,17 @@ client = MongoClient(
 db = client['FORMDATACOLLECTION']
 Details = db['CONTACTS']
 
+# Example of allowing specific origins dynamically
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', request.headers.get('Origin', '*'))
+    response.headers.add('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+    response.headers.add('Access-Control-Allow-Headers', '*')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    return response
+
 @app.route('/api/save_form_data', methods=['POST', 'OPTIONS'])
-@cross_origin(origin='https://chefs-bhojan-form.vercel.app', supports_credentials=True)
+@cross_origin(supports_credentials=True)
 def save_form_data():
     if request.method == 'OPTIONS':
         return jsonify({'status': 'success', 'message': 'CORS preflight request handled successfully'}), 200
@@ -38,7 +49,8 @@ def get_weighted_value():
     return random.choices(values, probabilities)[0]
 
 @app.route('/api/get_discount_value', methods=['GET'])
-@cross_origin(origin='https://chefs-bhojan-form.vercel.app', supports_credentials=True)
+@cross_origin(supports_credentials=True)
 def get_value():
     value = get_weighted_value()
     return jsonify({'value': value})
+
