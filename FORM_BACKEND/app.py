@@ -1,4 +1,4 @@
-from flask import Flask, make_response, render_template, request, jsonify
+from flask import Flask, request, jsonify
 from pymongo import MongoClient
 from datetime import datetime
 from flask_cors import CORS
@@ -7,35 +7,25 @@ import random
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/api/*": {"origins": "https://chefs-bhojan.vercel.app"}}, supports_credentials=True)
+CORS(app, supports_credentials=True, allow_headers="*", origins="*", methods=["OPTIONS", "POST"])
+CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_secure_default_key')
 
 client = MongoClient(
-    'mongodb+srv://nagesh:nagesh2245@mywebsites.btvk61i.mongodb.net/',
+    'mongodb+srv://crob0008:GYfLnhxdJgeiOTPO@chefsbhojan.oxsu9gm.mongodb.net/',
     connectTimeoutMS=30000, 
     socketTimeoutMS=None)
-db = client['Crob_orders']
-Deatils = db['orders']
-
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    response = make_response(render_template('index.html'))
-    response.headers['Permissions-Policy'] = 'interest-cohort=()'
-    return response
+db = client['FORMDATACOLLECTION']
+Details = db['CONTACTS']
 
 @app.route('/api/save_form_data', methods=['POST', 'OPTIONS'])
 def save_form_data():
 
     if request.method == 'OPTIONS':
-        response = make_response()
-        response.headers.add('Access-Control-Allow-Origin', 'https://chefs-bhojan.vercel.app')
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-        response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
-        response.headers.add('Access-Control-Allow-Credentials', 'true')
-        print("Handled OPTIONS request with CORS headers.")
-        return response, 200
+        return jsonify({'status': 'success', 'message': 'CORS preflight request handled successfully'}), 200
 
+    
     data = request.get_json()
     print("Received form data:", data)
 
@@ -44,11 +34,9 @@ def save_form_data():
         'phone': data['phone'],
         'date_created': datetime.utcnow(),
     }
-    Deatils.insert_one(new_order)
-    response = jsonify({'message': 'Data saved successfully'})
-    response.headers.add('Access-Control-Allow-Origin', 'https://chefs-bhojan.vercel.app')
-    response.headers.add('Access-Control-Allow-Credentials', 'true')
-    return response
+    Details.insert_one(new_order)
+    return jsonify({'status': 'success', 'message': 'Form data saved successfully'}), 200
+
 
 def get_weighted_value():
     values = [10, 20, 40]
@@ -58,10 +46,4 @@ def get_weighted_value():
 @app.route('/api/get_discount_value', methods=['GET'])
 def get_value():
     value = get_weighted_value()
-    response = jsonify({'value': value})
-    response.headers.add('Access-Control-Allow-Origin', 'https://chefs-bhojan.vercel.app')
-    response.headers.add('Access-Control-Allow-Credentials', 'true')
-    return response
-
-if __name__ == '__main__':
-    app.run()
+    return jsonify({'value': value})
