@@ -7,7 +7,7 @@ import random
 
 app = Flask(__name__)
 
-CORS(app ,allow_headers="*", resources={r"/api/*": {"origins": "https://chefs-bhojan.vercel.app"}} , supports_credentials=True)
+CORS(app, allow_headers=["Content-Type", "Authorization"], resources={r"/api/*": {"origins": "https://chefs-bhojan.vercel.app"}}, supports_credentials=True)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_secure_default_key')
 
@@ -28,9 +28,13 @@ def index():
 def save_form_data():
 
     if request.method == 'OPTIONS':
-        return jsonify({'status': 'success', 'message': 'CORS preflight request handled successfully'}), 200
+        response = make_response()
+        response.headers.add('Access-Control-Allow-Origin', 'https://chefs-bhojan.vercel.app')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+        response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
+        return response, 200
 
-    
     data = request.get_json()
     print("Received form data:", data)
 
@@ -41,6 +45,8 @@ def save_form_data():
     }
     Deatils.insert_one(new_order)
     response = jsonify({'message': 'Data saved successfully'})
+    response.headers.add('Access-Control-Allow-Origin', 'https://chefs-bhojan.vercel.app')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
     return response
 
 def get_weighted_value():
@@ -51,4 +57,10 @@ def get_weighted_value():
 @app.route('/api/get_discount_value', methods=['GET'])
 def get_value():
     value = get_weighted_value()
-    return jsonify({'value': value})
+    response = jsonify({'value': value})
+    response.headers.add('Access-Control-Allow-Origin', 'https://chefs-bhojan.vercel.app')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    return response
+
+if __name__ == '__main__':
+    app.run()
