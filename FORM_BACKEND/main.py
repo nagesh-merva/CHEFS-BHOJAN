@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_secure_default_key')
 
-CORS(app,origins = "https://chefs-bhojan.vercel.app")
+CORS(app,origins = "*")
 
 client = MongoClient(
     'mongodb+srv://crob0008:GYfLnhxdJgeiOTPO@chefsbhojan.oxsu9gm.mongodb.net/',
