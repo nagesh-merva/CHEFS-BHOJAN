@@ -44,7 +44,3 @@ def get_weighted_value():
 def get_value():
     value = get_weighted_value()
     return jsonify({'value': value})
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
