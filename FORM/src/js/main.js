@@ -1,13 +1,13 @@
-let Discount = 10;
+let Discount = 10
 
-const HAT = document.getElementById('Chefshat');
-const DISCOUNT = document.getElementById('discount');
+const HAT = document.getElementById('Chefshat')
+const DISCOUNT = document.getElementById('discount')
 
 document.getElementById('discountForm').addEventListener('submit', async function (event) {
     event.preventDefault();
 
-    const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
+    const name = document.getElementById('name').value
+    const phone = document.getElementById('phone').value
 
     const formData = {
         name: name,
@@ -15,11 +15,11 @@ document.getElementById('discountForm').addEventListener('submit', async functio
     };
 
     try {
-        await saveFormData(formData); // Wait for saveFormData to complete
-        await fetchWeightedValue(); // Wait for fetchWeightedValue to complete
+        await saveFormData(formData)
+        await fetchWeightedValue()
     } catch (error) {
-        console.error('Error:', error);
-        alert('ERROR, Please try again');
+        console.error('Error:', error)
+        alert('ERROR, Please try again')
     }
 });
 
@@ -27,7 +27,6 @@ async function saveFormData(formData) {
     try {
         const response = await fetch('https://chefs-bhojan-mlz6.vercel.app/api/save_form_data', {
             method: 'POST',
-            mode: 'cors',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -35,9 +34,9 @@ async function saveFormData(formData) {
             credentials: 'include'
         });
         if (!response.ok) {
-            throw new Error('Failed to save form data');
+            throw new Error('Failed to save form data')
         }
-        return response.json();
+        return response.json()
     } catch (error) {
         throw error;
     }
@@ -51,7 +50,7 @@ async function fetchWeightedValue() {
             credentials: 'include'
         });
         if (!response.ok) {
-            throw new Error('Failed to fetch weighted value');
+            throw new Error('Failed to fetch weighted value')
         }
         const data = await response.json();
         Discount = data.value;
@@ -63,11 +62,11 @@ async function fetchWeightedValue() {
 }
 
 function updateElements() {
-    HAT.classList.remove('hidden');
-    HAT.classList.add('animate-translate-scale');
+    HAT.classList.remove('hidden')
+    HAT.classList.add('animate-translate-scale')
     setTimeout(() => {
-        DISCOUNT.innerText += Discount + "% Discount";
-        DISCOUNT.classList.add('animate-scale');
-        DISCOUNT.classList.remove('hidden');
-    }, 1000);
+        DISCOUNT.innerText += Discount + "% Discount"
+        DISCOUNT.classList.add('animate-scale')
+        DISCOUNT.classList.remove('hidden')
+    }, 1000)
 }
