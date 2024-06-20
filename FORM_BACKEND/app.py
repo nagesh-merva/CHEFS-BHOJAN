@@ -1,30 +1,25 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
 from pymongo import MongoClient
 from datetime import datetime
-from flask_cors import CORS , cross_origin
-import os
 import random
 
 app = Flask(__name__)
 
-CORS(app, supports_credentials=True, allow_headers="*", origins="*", methods=["OPTIONS", "POST"])
-CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
-
+CORS(app, supports_credentials=True)
 
 client = MongoClient(
     'mongodb+srv://crob0008:GYfLnhxdJgeiOTPO@chefsbhojan.oxsu9gm.mongodb.net/',
     connectTimeoutMS=30000, 
     socketTimeoutMS=None)
 db = client['FORMDATACOLLECTION']
-Deatils = db['CONTACTS']
+Details = db['CONTACTS']
 
 @app.route('/api/save_form_data', methods=['POST', 'OPTIONS'])
-@cross_origin()
+@cross_origin(origin='https://chefs-bhojan-form.vercel.app', supports_credentials=True)
 def save_form_data():
-
     if request.method == 'OPTIONS':
         return jsonify({'status': 'success', 'message': 'CORS preflight request handled successfully'}), 200
-
     
     data = request.get_json()
     print("Received form data:", data)
@@ -34,7 +29,7 @@ def save_form_data():
         'phone': data['phone'],
         'date_created': datetime.utcnow(),
     }
-    Deatils.insert_one(new_order)
+    Details.insert_one(new_order)
     return jsonify({'status': 'success', 'message': 'Form data saved successfully'}), 200
 
 def get_weighted_value():
@@ -43,7 +38,7 @@ def get_weighted_value():
     return random.choices(values, probabilities)[0]
 
 @app.route('/api/get_discount_value', methods=['GET'])
-@cross_origin()
+@cross_origin(origin='https://chefs-bhojan-form.vercel.app', supports_credentials=True)
 def get_value():
     value = get_weighted_value()
     return jsonify({'value': value})
