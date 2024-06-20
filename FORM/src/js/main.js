@@ -14,7 +14,7 @@ document.getElementById('discountForm').addEventListener('submit', function (eve
         phone: phone
     };
 
-    fetch('https://chefs-bhojan.vercel.app/api/save_form_data', {
+    fetch('https://chefs-bhojan-mlz6.vercel.app/api/save_form_data', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -32,7 +32,7 @@ document.getElementById('discountForm').addEventListener('submit', function (eve
 });
 
 function fetchWeightedValue() {
-    fetch('https://chefs-bhojan.vercel.app/get_discount_value')
+    fetch('https://chefs-bhojan-mlz6.vercel.app/get_discount_value')
         .then(response => response.json())
         .then(data => {
             Discount = data.value
