@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, make_response, render_template, request, jsonify
 from pymongo import MongoClient
 from datetime import datetime
 from flask_cors import CORS
@@ -12,11 +12,17 @@ CORS(app ,allow_headers="*", resources={r"/api/*": {"origins": "https://chefs-bh
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_secure_default_key')
 
 client = MongoClient(
-    'mongodb+srv://crob0008:GYfLnhxdJgeiOTPO@chefsbhojan.oxsu9gm.mongodb.net/',
+    'mongodb+srv://nagesh:nagesh2245@mywebsites.btvk61i.mongodb.net/',
     connectTimeoutMS=30000, 
     socketTimeoutMS=None)
-db = client['FORMDATACOLLECTION']
-Deatils = db['CONTACTS']
+db = client['Crob_orders']
+Deatils = db['orders']
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    response = make_response(render_template('index.html'))
+    response.headers['Permissions-Policy'] = 'interest-cohort=()'
+    return response
 
 @app.route('/api/save_form_data', methods=['POST', 'OPTIONS'])
 def save_form_data():
