@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_secure_default_key')
 
-CORS(app, supports_credentials=True, allow_headers="*", origins="*", methods=["OPTIONS", "POST"])
+CORS(app, supports_credentials=True, allow_headers=["Content-Type"], origins=["*"], methods=["GET", "POST", "OPTIONS"])
 
 client = MongoClient(
     'mongodb+srv://nagesh:nagesh2245@mywebsites.btvk61i.mongodb.net/',
@@ -32,7 +32,6 @@ def save_form_data():
         'date_created': datetime.utcnow(),
     }
     orderslist.insert_one(new_order)
-    print(data)
     return jsonify({'status': 'success', 'message': 'Form data saved successfully'}), 200
 
 def get_weighted_value():
@@ -44,3 +43,6 @@ def get_weighted_value():
 def get_value():
     value = get_weighted_value()
     return jsonify({'value': value})
+
+if __name__ == '__main__':
+    app.run(debug=True)
