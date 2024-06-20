@@ -5,7 +5,7 @@
             "headers": [
                 {
                     "key": "Access-Control-Allow-Origin",
-                    "value": "https://chefs-bhojan-form.vercel.app"
+                    "value": "*"
                 },
                 {
                     "key": "Access-Control-Allow-Methods",
@@ -14,10 +14,6 @@
                 {
                     "key": "Access-Control-Allow-Headers",
                     "value": "*"
-                },
-                {
-                    "key": "Access-Control-Allow-Credentials",
-                    "value": true
                 }
             ]
         },
@@ -37,16 +33,6 @@
                     "value": "*"
                 }
             ]
-        }
-    ],
-    "version": 2,
-    "builds": [
-        {
-            "src": "index.py",
-            "use": "@vercel/python",
-            "config": {
-                "runtime": "python3.12"
-            }
         }
     ]
 }
