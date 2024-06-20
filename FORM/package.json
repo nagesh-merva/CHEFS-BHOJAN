@@ -3,7 +3,6 @@
     "tailwindcss": "^3.4.4"
   },
   "scripts": {
-    "build": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch",
-    "start": "npm run build && vercel dev"
+    "build": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch"
   }
 }
