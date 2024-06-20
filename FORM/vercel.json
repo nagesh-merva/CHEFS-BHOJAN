@@ -10,13 +10,5 @@
             "src": "/(.*)",
             "dest": "/src/index.html"
         }
-    ],
-    "build": {
-        "env": {
-            "NEXT_PUBLIC_TAILWIND_MODE": "build"
-        },
-        "commands": {
-            "build": "npm run build"
-        }
-    }
+    ]
 }
