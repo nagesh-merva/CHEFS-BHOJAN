@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_secure_default_key')
 
-CORS(app,origins = "*")
+CORS(app, origins="https://chefs-bhojan.vercel.app")
 
 client = MongoClient(
     'mongodb+srv://crob0008:GYfLnhxdJgeiOTPO@chefsbhojan.oxsu9gm.mongodb.net/',
@@ -43,6 +43,3 @@ def get_weighted_value():
 def get_value():
     value = get_weighted_value()
     return jsonify({'value': value})
-
-if __name__ == '__main__':
-    app.run(debug=True)
