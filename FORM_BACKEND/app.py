@@ -7,7 +7,7 @@ import random
 
 app = Flask(__name__)
 
-CORS(app, allow_headers=["Content-Type", "Authorization"], resources={r"/api/*": {"origins": "https://chefs-bhojan.vercel.app"}}, supports_credentials=True)
+CORS(app, resources={r"/api/*": {"origins": "https://chefs-bhojan.vercel.app"}}, supports_credentials=True)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_secure_default_key')
 
@@ -33,6 +33,7 @@ def save_form_data():
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
         response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
         response.headers.add('Access-Control-Allow-Credentials', 'true')
+        print("Handled OPTIONS request with CORS headers.")
         return response, 200
 
     data = request.get_json()
