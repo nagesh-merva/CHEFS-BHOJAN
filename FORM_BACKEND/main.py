@@ -12,11 +12,11 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_secure_default_key')
 CORS(app, supports_credentials=True, allow_headers=["Content-Type"], origins=["*"], methods=["GET", "POST", "OPTIONS"])
 
 client = MongoClient(
-    'mongodb+srv://nagesh:nagesh2245@mywebsites.btvk61i.mongodb.net/',
+    'mongodb+srv://crob0008:GYfLnhxdJgeiOTPO@chefsbhojan.oxsu9gm.mongodb.net/',
     connectTimeoutMS=30000, 
     socketTimeoutMS=None)
-db = client['Crob_orders']
-orderslist = db['orders']
+db = client['FORMDATACOLLECTION']
+Deatils = db['CONTACTS']
 
 @app.route('/api/save_form_data', methods=['POST', 'OPTIONS'])
 def save_form_data():
@@ -31,7 +31,7 @@ def save_form_data():
         'phone': data['phone'],
         'date_created': datetime.utcnow(),
     }
-    orderslist.insert_one(new_order)
+    Deatils.insert_one(new_order)
     return jsonify({'status': 'success', 'message': 'Form data saved successfully'}), 200
 
 def get_weighted_value():
