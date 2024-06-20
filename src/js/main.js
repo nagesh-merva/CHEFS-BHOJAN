@@ -1,6 +1,7 @@
 
 const HAT = document.getElementById('Chefshat')
 const DISCOUNT = document.getElementById('discount')
+const submitbtn = document.getElementById('BTN')
 
 document.getElementById('discountForm').addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -15,6 +16,7 @@ document.getElementById('discountForm').addEventListener('submit', async functio
 
     try {
         await saveFormData(formData)
+        submitbtn.classList.add('hidden')
     } catch (error) {
         console.error('Error:', error)
     }
