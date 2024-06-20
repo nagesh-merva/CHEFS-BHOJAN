@@ -6,7 +6,7 @@ import os
 import random
 
 app = Flask(__name__)
-CORS(app ,supports_credentials=True)
+CORS(app ,  resources={r"/api/*": {"origins": "*"}} ,supports_credentials=True)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_secure_default_key')
 
