@@ -36,29 +36,13 @@ async function saveFormData(formData) {
         if (!response.ok) {
             throw new Error('Failed to save form data')
         }
+        updateElements()
         return response.json()
     } catch (error) {
         throw error;
     }
 }
 
-async function fetchWeightedValue() {
-    try {
-        const response = await fetch('https://chefs-bhojan-backend.vercel.app/api/get_discount_value', {
-            method: 'GET',
-            credentials: 'include'
-        });
-        if (!response.ok) {
-            throw new Error('Failed to fetch weighted value')
-        }
-        const data = await response.json();
-        Discount = data.value;
-        console.log(Discount);
-        updateElements();
-    } catch (error) {
-        throw error;
-    }
-}
 
 function updateElements() {
     HAT.classList.remove('hidden')
