@@ -1,14 +1,22 @@
 {
     "builds": [
         {
-            "src": "src/index.html",
+            "src": "src/**/*",
             "use": "@vercel/static"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "src/index.html"
+            "dest": "/src/index.html"
         }
-    ]
+    ],
+    "build": {
+        "env": {
+            "NEXT_PUBLIC_TAILWIND_MODE": "build"
+        },
+        "commands": {
+            "build": "npm run build"
+        }
+    }
 }
