@@ -855,7 +855,7 @@ video {
 }
 
 .animate-translate-scale {
-  animation: translateAndScale 2s ease-in-out
+  animation: translateAndScale 3s ease-in-out
 }
 
 .animate-scale {
