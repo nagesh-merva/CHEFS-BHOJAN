@@ -12,7 +12,7 @@ document.getElementById('discountForm').addEventListener('submit', async functio
     const formData = {
         name: name,
         phone: phone
-    };
+    }
 
     try {
         await saveFormData(formData)
@@ -25,7 +25,7 @@ document.getElementById('discountForm').addEventListener('submit', async functio
 
 async function saveFormData(formData) {
     try {
-        const response = await fetch('https://cro-b-backend.vercel.app/api2/save_form_data', {
+        const response = await fetch('https://chefs-bhojan-mlz6.vercel.app/api/save_form_data', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ async function saveFormData(formData) {
 
 async function fetchWeightedValue() {
     try {
-        const response = await fetch('https://cro-b-backend.vercel.app/api2/get_discount_value', {
+        const response = await fetch('https://chefs-bhojan-mlz6.vercel.app/api/get_discount_value', {
             method: 'GET',
             credentials: 'include'
         });
