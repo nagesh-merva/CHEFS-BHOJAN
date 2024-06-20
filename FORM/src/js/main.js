@@ -19,7 +19,8 @@ document.getElementById('discountForm').addEventListener('submit', function (eve
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
+        credentials: 'include',
     })
         .then(response => response.text())
         .then(data => {
