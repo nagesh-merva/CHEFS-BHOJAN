@@ -828,7 +828,7 @@ video {
 
 @keyframes translateAndScale {
   0% {
-    transform: translateX(-378px) scale(1)
+    transform: translateY(-378px) scale(1)
   }
 
   50% {
