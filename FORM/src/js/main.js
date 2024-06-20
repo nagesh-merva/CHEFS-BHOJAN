@@ -27,7 +27,6 @@ async function saveFormData(formData) {
     try {
         const response = await fetch('https://chefs-bhojan.vercel.app/api/save_form_data', {
             method: 'POST',
-            mode: 'cors',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -47,7 +46,6 @@ async function fetchWeightedValue() {
     try {
         const response = await fetch('https://chefs-bhojan.vercel.app/api/get_discount_value', {
             method: 'GET',
-            mode: 'cors',
             credentials: 'include'
         });
         if (!response.ok) {
