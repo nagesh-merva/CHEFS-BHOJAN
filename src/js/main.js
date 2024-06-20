@@ -15,10 +15,8 @@ document.getElementById('discountForm').addEventListener('submit', async functio
 
     try {
         await saveFormData(formData)
-        await fetchWeightedValue()
     } catch (error) {
         console.error('Error:', error)
-        alert('ERROR, Please try again')
     }
 });
 
