@@ -37,7 +37,10 @@ def save_form_data():
         'date_created': datetime.utcnow(),
     }
     Deatils.insert_one(new_order)
-    return jsonify({'status': 'success', 'message': 'Form data saved successfully'}), 200
+    response = jsonify({'status': 'success', 'message': 'Form data saved successfully'})
+    response.headers.add('Access-Control-Allow-Origin', 'https://chefs-bhojan.vercel.app')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    return response, 200
 
 def get_weighted_value():
     values = [10, 20, 40]
