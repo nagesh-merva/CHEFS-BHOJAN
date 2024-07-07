@@ -29,7 +29,7 @@ document.getElementById('discountForm').addEventListener('submit', async functio
 
 async function saveFormData(formData) {
     try {
-        const response = await fetch('http://localhost:8000/api/save_form_data', {
+        const response = await fetch('https://chefs-bhojan-backend.vercel.app/api/save_form_data', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
