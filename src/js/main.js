@@ -15,8 +15,13 @@ document.getElementById('discountForm').addEventListener('submit', async functio
     }
 
     try {
-        await saveFormData(formData)
-        submitbtn.classList.add('hidden')
+        const response = await saveFormData(formData)
+        if (response.status === 'exists') {
+            displayMessage(response.message)
+        } else {
+            submitbtn.classList.add('hidden')
+            updateElements()
+        }
     } catch (error) {
         console.error('Error:', error)
     }
@@ -24,7 +29,7 @@ document.getElementById('discountForm').addEventListener('submit', async functio
 
 async function saveFormData(formData) {
     try {
-        const response = await fetch('https://chefs-bhojan-backend.vercel.app/api/save_form_data', {
+        const response = await fetch('http://localhost:8000/api/save_form_data', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -35,7 +40,6 @@ async function saveFormData(formData) {
         if (!response.ok) {
             throw new Error('Failed to save form data')
         }
-        updateElements()
         return response.json()
     } catch (error) {
         throw error
@@ -68,4 +72,12 @@ function updateElements() {
         DISCOUNT.classList.add('animate-scale')
         DISCOUNT.classList.remove('hidden')
     }, 1000)
+}
+
+
+function displayMessage(message) {
+    const messageElement = document.createElement('div')
+    messageElement.innerText = message
+    messageElement.className = 'error-message px-8 absolute inset-0 h-screen w-screen flex items-center justify-center bg-amber-500 font-bold text-3xl text-white z-50'
+    document.body.appendChild(messageElement)
 }
